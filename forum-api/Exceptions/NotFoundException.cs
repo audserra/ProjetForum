@@ -1,4 +1,6 @@
-﻿namespace forum_api.Exceptions
+﻿using System.Runtime.Serialization;
+
+namespace forum_api.Exceptions
 {
     public class NotFoundException : Exception
     {

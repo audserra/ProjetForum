@@ -1,4 +1,5 @@
 ﻿using forum_api.DataAccess.DataObjects;
+using forum_api.Exceptions;
 using forum_api.Repositories;
 
 namespace forum_api.Services
@@ -14,7 +15,14 @@ namespace forum_api.Services
 
         public Comment GetCommentById(int id)
         {
-            return this._repository.GetCommentById(id);
+            try
+            {
+                return this._repository.GetCommentById(id);
+            }
+            catch(NotFoundException e)
+            {
+                throw new NotFoundException();
+            }
         }
         public List<Comment> GetCommentsByTopicId(int topicId)
         {

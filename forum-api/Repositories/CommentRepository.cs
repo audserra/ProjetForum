@@ -15,10 +15,10 @@ namespace forum_api.Repositories
         public Comment GetCommentById(int id)
         {
             var comment = this._dbContext.Comments.SingleOrDefault(c => c.Id == id);
-            if (comment == null)
-            {
-                throw new NotFoundException("Not found.");
-            }
+            //if (comment == null)
+            //{
+            //    throw new NotFoundException("Not found.");
+            //}
             return comment;
         }
 
