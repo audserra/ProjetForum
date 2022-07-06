@@ -1,4 +1,5 @@
 ﻿using forum_api.DataAccess.DataObjects;
+using forum_api.Exceptions;
 using forum_api.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -19,34 +20,60 @@ namespace forum_api.Controllers
         [HttpGet("{id}")]
         public IActionResult GetCommentById(int id)
         {
-            return Ok(this._service.GetCommentById(id));
+            try
+            {
+                return Ok(this._service.GetCommentById(id));
+            }
+            catch (NotFoundException ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpGet("topic/{topicId}")]
         public IActionResult GetCommentsByyTopicId(int topicId)
         {
-            return Ok(this._service.GetCommentsByTopicId(topicId));
+            try
+            {
+                return Ok(this._service.GetCommentsByTopicId(topicId));
+            }
+            catch(NotFoundException ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPost]
         public IActionResult CreateComment(Comment comment)
         {
-            this._service.CreateComment(comment);
-            return Ok("Created!");
+            return Ok(this._service.CreateComment(comment));
         }
 
-        [HttpPut("{id}")]
-        public IActionResult UpdateComment(int id, Comment comment)
+        [HttpPut]
+        public IActionResult UpdateComment(Comment comment)
         {
-            this._service.UpdateComment(id, comment);
-            return Ok("Updated!");
+            try
+            {
+                return Ok(this._service.UpdateComment(comment));
+            }
+            catch(NotFoundException ex)
+            {
+                return BadRequest($"Erreur d'update : {ex.Message}");
+            }
         }
 
         [HttpDelete("{id}")]
         public IActionResult DeleteComment(int id)
         {
-            this._service.DeleteComment(id);
-            return Ok("Deleted!");
+            try
+            {
+                this._service.DeleteComment(id);
+                return Ok("Deleted!");
+            }
+            catch (NotFoundException ex)
+            {
+                return BadRequest($"Erreur de suppression : {ex.Message}");
+            }
         }
     }
 }

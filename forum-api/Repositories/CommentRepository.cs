@@ -1,5 +1,6 @@
 ﻿using forum_api.DataAccess.DataObjects;
 using forum_api.Exceptions;
+using Microsoft.EntityFrameworkCore;
 
 namespace forum_api.Repositories
 {
@@ -15,42 +16,35 @@ namespace forum_api.Repositories
         public Comment GetCommentById(int id)
         {
             var comment = this._dbContext.Comments.SingleOrDefault(c => c.Id == id);
-            //if (comment == null)
-            //{
-            //    throw new NotFoundException("Not found.");
-            //}
             return comment;
         }
 
         public List<Comment> GetCommentsByTopicId(int topicId)
         {
             List<Comment> comments = this._dbContext.Comments.Where(c => c.TopicId == topicId).ToList();
-            if (comments == null)
-            {
-                throw new NotFoundException("Not found.");
-            }
             return comments;
         }
 
-        public void CreateComment(Comment comment)
+        public Comment CreateComment(Comment comment)
         {
             this._dbContext.Comments.Add(comment);
             this._dbContext.SaveChanges();
+            return comment;
         }
 
-        public void UpdateComment(int id, Comment comment)
+        public Comment UpdateComment(Comment comment)
         {
-            this._dbContext.Comments.Update(comment);
+            _dbContext.Entry(comment).State = EntityState.Detached;
+            _dbContext.Entry(comment).State = EntityState.Modified;
+            //this._dbContext.Comments.Update(comment);
             this._dbContext.SaveChanges();
+            return comment;
         }
 
         public void DeleteComment(int id)
         {
             var comment = _dbContext.Comments.SingleOrDefault(c => c.Id == id);
-            if (comment == null)
-            {
-                throw new NotFoundException("Not found.");
-            }
+
             this._dbContext.Comments.Remove(comment);
             this._dbContext.SaveChanges();
         }
