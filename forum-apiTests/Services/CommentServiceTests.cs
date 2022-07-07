@@ -68,28 +68,38 @@ namespace forum_api.Services.Tests
             this._commentRepository.VerifyAll();
         }
 
-        [TestMethod()]
-        public void GetCommentsByTopicIdTest()
-        {
-            Assert.Fail();
-        }
+        //[TestMethod()]
+        //public void GetCommentsByTopicIdTest_ValidTopicId_ShouldReturnList()
+        //{
+        //    // Arrange
+        //    this._commentRepository.Setup(r => r.GetCommentsByTopicId(It.IsAny<int>()))
+        //        .Returns(new List<Comment>() { expectedComment, expectedComment});
 
-        [TestMethod()]
-        public void CreateCommentTest()
-        {
-            Assert.Fail();
-        }
+        //    // Act
+        //    var actualComments = _commentService.GetCommentById(id);
 
-        [TestMethod()]
-        public void UpdateCommentTest()
-        {
-            Assert.Fail();
-        }
+        //    // Assert
+        //    Assert.IsInstanceOfType(actualComment, typeof(Comment));
+        //    Assert.AreEqual(expectedComment, actualComment);
+        //    this._commentRepository.VerifyAll();
+        //}
 
-        [TestMethod()]
-        public void DeleteCommentTest()
-        {
-            Assert.Fail();
-        }
+        //[TestMethod()]
+        //public void CreateCommentTest()
+        //{
+        //    Assert.Fail();
+        //}
+
+        //[TestMethod()]
+        //public void UpdateCommentTest()
+        //{
+        //    Assert.Fail();
+        //}
+
+        //[TestMethod()]
+        //public void DeleteCommentTest()
+        //{
+        //    Assert.Fail();
+        //}
     }
 }
