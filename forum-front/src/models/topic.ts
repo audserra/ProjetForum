@@ -2,20 +2,20 @@ import { Comment } from "./comment";
 
 export class Topic{
 
-    public Id : number;
-    public CreationDate : Date;
-    public ModificationDate : Date;
-    public Title : string;
-    public Author : string;
+    public id : number;
+    public creationDate : Date;
+    public modificationDate : Date;
+    public title : string;
+    public author : string;
 
-    public Comments : Comment[];
+    public comments : Comment[];
     
     constructor(id : number, creationDate : Date, modificationDate : Date, title : string, author : string, comments : Comment[]){
-        this.Id = id;
-        this.CreationDate = creationDate;
-        this.ModificationDate = modificationDate;
-        this.Title = title;
-        this.Author = author;
-        this.Comments = comments;
+        this.id = id;
+        this.creationDate = creationDate;
+        this.modificationDate = modificationDate;
+        this.title = title;
+        this.author = author;
+        this.comments = comments;
     }
 }

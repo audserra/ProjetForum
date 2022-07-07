@@ -1,18 +1,18 @@
 export class Comment{
 
-    public Id : number;
-    public CreationDate : Date;
-    public ModificationDate : Date;
-    public User : string;
-    public Content : string;
-    public TopicId : number
+    public id : number;
+    public creationDate : Date;
+    public modificationDate : Date;
+    public user : string;
+    public content : string;
+    public topicId : number
     
     constructor(id : number, creationDate : Date, modificationDate : Date, user : string, content : string, topicId : number){
-        this.Id = id;
-        this.CreationDate = creationDate;
-        this.ModificationDate = modificationDate;
-        this.User = user;
-        this.Content = content;
-        this.TopicId = topicId;
+        this.id = id;
+        this.creationDate = creationDate;
+        this.modificationDate = modificationDate;
+        this.user = user;
+        this.content = content;
+        this.topicId = topicId;
     }
 }

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { TopicService } from 'src/app/services/topic.service';
+import { Topic } from 'src/models/topic';
 
 @Component({
   selector: 'app-topic',
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TopicComponent implements OnInit {
 
-  constructor() { }
+  topics : Topic[] = [];
+  
+  constructor(private topicService : TopicService) { }
 
   ngOnInit(): void {
+    this.topicService.getAllTopics().subscribe(response =>{
+      this.topics = response;
+      console.log(this.topics)
+    })
   }
-
 }

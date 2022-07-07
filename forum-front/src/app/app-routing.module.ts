@@ -4,6 +4,7 @@ import { TopicComponent } from './pages/topic/topic.component';
 
 const routes: Routes = [
   {path:"topics", component:TopicComponent},
+  {path:"**", redirectTo: ""}
 ];
 
 @NgModule({

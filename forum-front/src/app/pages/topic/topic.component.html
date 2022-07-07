@@ -1,1 +1,8 @@
-<p>topic works!</p>
+<div class="container mx-auto my-5">
+    <!-- <img src="https://webstockreview.net/images/cinema-clipart-movie-ticket-8.png" width="250"> -->
+Salut
+</div>
+    
+    <div class="d-grid gap-2 col-6 mx-auto m-3" *ngFor="let topic of topics">
+        <button routerLink="/topics/{{topic.id}}" class="btn btn-light btn-lg btn-outline-warning">{{topic.title}}</button>
+      </div>
