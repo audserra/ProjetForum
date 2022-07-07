@@ -4,10 +4,10 @@ import { Topic } from 'src/models/topic';
 
 @Component({
   selector: 'app-topic',
-  templateUrl: './topic.component.html',
-  styleUrls: ['./topic.component.css']
+  templateUrl: './topicList.component.html',
+  styleUrls: ['./topicList.component.css']
 })
-export class TopicComponent implements OnInit {
+export class TopicListComponent implements OnInit {
 
   topics : Topic[] = [];
   

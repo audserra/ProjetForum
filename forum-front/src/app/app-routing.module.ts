@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { TopicComponent } from './pages/topic/topic.component';
+import { TopicListComponent } from './pages/topicList/topicList.component';
 
 const routes: Routes = [
-  {path:"topics", component:TopicComponent},
+  {path:"topics", component:TopicListComponent},
   {path:"**", redirectTo: ""}
 ];
 
