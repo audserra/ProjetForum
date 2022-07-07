@@ -7,10 +7,12 @@ namespace forum_api.Services
     public class CommentService : ICommentService
     {
         private readonly ICommentRepository _repository;
+        private readonly ITopicService _topicService;
 
-        public CommentService(ICommentRepository repository)
+        public CommentService(ICommentRepository repository, ITopicService topicService)
         {
             this._repository = repository;
+            this._topicService = topicService;
         }
 
         public Comment GetCommentById(int id)
@@ -25,22 +27,19 @@ namespace forum_api.Services
         }
         public List<Comment> GetCommentsByTopicId(int topicId)
         {
+            _ = this._topicService.GetTopicById(topicId);
             var comments = _repository.GetCommentsByTopicId(topicId);
-            //TODO : Verifier si le Topic existe
-            //if(comments == null)
-            //{
-            //    throw new NotFoundException("Ce TopicID n'existe pas.");
-            //}
             return comments;
         }
         public Comment CreateComment(Comment comment)
         {
-            //TODO : Verifier si le Topic existe
+            _ = this._topicService.GetTopicById(comment.TopicId);
             comment.CreationDate = DateTime.Now;
             return this._repository.CreateComment(comment);
         }
         public Comment UpdateComment(Comment comment)
         {
+            _ = this._topicService.GetTopicById(comment.TopicId);
             comment.ModificationDate = DateTime.Now;
             return this._repository.UpdateComment(comment);
         }

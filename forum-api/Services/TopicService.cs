@@ -1,4 +1,5 @@
 ﻿using forum_api.DataAccess.DataObjects;
+using forum_api.Exceptions;
 using forum_api.Repositories;
 
 namespace forum_api.Services
@@ -29,7 +30,7 @@ namespace forum_api.Services
 
             if(topic == null)
             {
-                throw new Exception("Ce topic n'existe pas"); 
+                throw new NotFoundException("Ce topic n'existe pas"); 
             }
 
             return topic;
