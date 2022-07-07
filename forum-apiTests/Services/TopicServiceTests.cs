@@ -18,6 +18,34 @@ namespace forum_api.Services.Tests
         private ITopicService _topicService;
         private Mock<ITopicRepository> _topicRepository;
         private Topic expectedTopic;
+        private static DateTime originDate = new DateTime(2000, 08, 07, 09, 05, 00);
+
+        private static IEnumerable<Topic[]> GetTestData()
+        {
+            return new List<Topic[]>
+            {
+                    new Topic[]
+                    {
+                        new Topic(){
+                            Id = 1,
+                            CreationDate = originDate,
+                            ModificationDate = originDate,
+                            Title = "Test",
+                            Author = "Thomas",
+                            Comments = new List<Comment>() }
+                    },
+                    new Topic[]
+                    {
+                        new Topic(){
+                            Id = 2,
+                            CreationDate = originDate,
+                            ModificationDate = originDate,
+                            Title = "Test",
+                            Author = "Audrey",
+                            Comments = new List<Comment>() }
+                    }
+            };
+        }
 
         [TestInitialize]
         public void Initialize()
@@ -28,7 +56,7 @@ namespace forum_api.Services.Tests
             this.expectedTopic = new Topic()
             {
                 Id = 1,
-                CreationDate = DateTime.Now,
+                CreationDate = originDate,
                 ModificationDate = null,
                 Title = "Test",
                 Author = "Thomas",
@@ -38,7 +66,6 @@ namespace forum_api.Services.Tests
 
         [TestMethod()]
         [DataRow(1)]
-        [DataRow(3)]
         public void GetTopicByIdTest_ParamsOk_ShouldReturnTopic(int id)
         {
             // Arrange
@@ -55,7 +82,6 @@ namespace forum_api.Services.Tests
 
         [TestMethod()]
         [DataRow(1)]
-        [DataRow(3)]
         public void GetTopicByIdTest_InvalidId_ShouldThrowNotFoundException(int id)
         {
             // Arrange
@@ -83,22 +109,35 @@ namespace forum_api.Services.Tests
             this._topicRepository.VerifyAll();
         }
 
-        //[TestMethod()]
-        //public void CreateTopicTest()
-        //{
-        //    Assert.Fail();
-        //}
 
-        //[TestMethod()]
-        //public void UpdateTopicTest()
-        //{
-        //    Assert.Fail();
-        //}
 
-        //[TestMethod()]
-        //public void DeleteTopicTest()
-        //{
-        //    Assert.Fail();
-        //}
+        [TestMethod()]
+        [DynamicData(nameof(GetTestData), DynamicDataSourceType.Method)]
+        public void CreateTopicTest_ParamsOk_ShouldCreateTopic(Topic topic)
+        {
+            // Arrange
+            this._topicRepository.Setup(r => r.AddTopic(It.IsAny<Topic>())).Returns(topic);
+
+            // Act
+            var actualTopic = _topicService.AddTopic(topic);
+
+            // Assert
+            Assert.IsInstanceOfType(actualTopic, typeof(Topic));
+            Assert.AreEqual(topic, actualTopic);
+            Assert.AreNotEqual(topic.CreationDate, originDate);
+            this._topicRepository.VerifyAll();
+        }
+
+        [TestMethod()]
+        public void UpdateTopicTest()
+        {
+            Assert.Fail();
+        }
+
+        [TestMethod()]
+        public void DeleteTopicTest()
+        {
+            Assert.Fail();
+        }
     }
 }
