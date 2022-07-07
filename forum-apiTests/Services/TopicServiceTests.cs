@@ -124,20 +124,58 @@ namespace forum_api.Services.Tests
             // Assert
             Assert.IsInstanceOfType(actualTopic, typeof(Topic));
             Assert.AreEqual(topic, actualTopic);
-            Assert.AreNotEqual(topic.CreationDate, originDate);
+            Assert.AreNotEqual(actualTopic.CreationDate, originDate);
             this._topicRepository.VerifyAll();
         }
 
         [TestMethod()]
-        public void UpdateTopicTest()
+        [DynamicData(nameof(GetTestData), DynamicDataSourceType.Method)]
+        public void UpdateTopicTest_paramsOk_ShouldUpdateModificationDateAndUpdateTopic(Topic topic)
         {
-            Assert.Fail();
+            // Arrange
+            this._topicRepository.Setup(r => r.UpdateTopic(It.IsAny<Topic>()))
+                .Returns(topic);
+
+            // Act
+            var actualTopic = _topicService.UpdateTopic(topic);
+
+            // Assert
+            Assert.IsInstanceOfType(actualTopic, typeof(Topic));
+            Assert.AreEqual(topic, actualTopic);
+            Assert.AreEqual(originDate, actualTopic.CreationDate);
+            Assert.AreNotEqual(originDate, actualTopic.ModificationDate);
+            this._topicRepository.VerifyAll();
         }
 
         [TestMethod()]
-        public void DeleteTopicTest()
+        [DataRow(1)]
+        [DataRow(3)]
+        public void DeleteTopicTest_ValidId_ShouldDeleteTopic(int id)
         {
-            Assert.Fail();
+            // Arrange
+            this._topicRepository.Setup(r => r.GetTopicById(It.IsAny<int>())).Returns(this.expectedTopic);
+
+            this._topicRepository.Setup(r => r.DeleteTopic(It.IsAny<int>()));
+
+            // Act
+            _topicService.DeleteTopic(id);
+
+            // Assert
+            this._topicRepository.VerifyAll();
+        }
+
+        [TestMethod()]
+        [DataRow(1)]
+        [DataRow(3)]
+        public void DeleteTopicTest_InvalidId_ShouldThrowNotFoundException(int id)
+        {
+            // Arrange
+            this._topicRepository.Setup(r => r.GetTopicById(It.IsAny<int>()))
+                .Returns((Topic)null);
+
+            // Act + Assert
+            Assert.ThrowsException<NotFoundException>(() => _topicService.DeleteTopic(id));
+            this._topicRepository.VerifyAll();
         }
     }
 }
