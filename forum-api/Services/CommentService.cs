@@ -15,30 +15,39 @@ namespace forum_api.Services
 
         public Comment GetCommentById(int id)
         {
-            try
+            var comment = _repository.GetCommentById(id);
+            if(comment == null)
             {
-                return this._repository.GetCommentById(id);
+                throw new NotFoundException("Ce CommentID n'existe pas.");
             }
-            catch(NotFoundException e)
-            {
-                throw new NotFoundException();
-            }
+            return comment;
+
         }
         public List<Comment> GetCommentsByTopicId(int topicId)
         {
-            return this._repository.GetCommentsByTopicId(topicId);
+            var comments = _repository.GetCommentsByTopicId(topicId);
+            //TODO : Verifier si le Topic existe
+            //if(comments == null)
+            //{
+            //    throw new NotFoundException("Ce TopicID n'existe pas.");
+            //}
+            return comments;
         }
-        public void CreateComment(Comment comment)
+        public Comment CreateComment(Comment comment)
         {
-            this._repository.CreateComment(comment);
+            //TODO : Verifier si le Topic existe
+            comment.CreationDate = DateTime.Now;
+            return this._repository.CreateComment(comment);
         }
-        public void UpdateComment(int id, Comment comment)
+        public Comment UpdateComment(Comment comment)
         {
-            this._repository.UpdateComment(id, comment);
+            comment.ModificationDate = DateTime.Now;
+            return this._repository.UpdateComment(comment);
         }
 
         public void DeleteComment(int id)
         {
+            _ = this.GetCommentById(id);        
             this._repository.DeleteComment(id);
         }
     }
