@@ -7,7 +7,7 @@
         public WordFilterService()
         {
             string path = System.AppDomain.CurrentDomain.BaseDirectory.Replace(@"Tests\bin\Debug\net6.0\", @"\");
-            path = System.AppDomain.CurrentDomain.BaseDirectory.Replace(@"Tests/bin/Debug/net6.0/", @"/");
+            path = path.Replace(@"Tests/bin/Debug/net6.0/", @"/");
 
             var content = File.ReadLines(Path.Combine(path,"insults.txt"));
             banWords = content.ToArray();
@@ -15,19 +15,23 @@
 
         public string ReplaceInsults(string textATester)
         {
-            foreach (var word in banWords)
+            if(textATester != null && textATester != "")
             {
-                if (textATester.Contains(word))
+                foreach (var word in banWords)
                 {
-                    string newWord = "" + word[0];
-                    for (int i = 1; i < word.Length-1; i++)
+                    if (textATester.Contains(word))
                     {
-                        newWord += "*";
+                        string newWord = "" + word[0];
+                        for (int i = 1; i < word.Length - 1; i++)
+                        {
+                            newWord += "*";
+                        }
+                        newWord += word[word.Length - 1];
+                        textATester = textATester.Replace(word, newWord);
                     }
-                    newWord += word[word.Length-1];
-                    textATester = textATester.Replace(word, newWord);
                 }
             }
+
             return textATester;
         }
     }
