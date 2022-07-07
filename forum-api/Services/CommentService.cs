@@ -26,14 +26,11 @@ namespace forum_api.Services
         public List<Comment> GetCommentsByTopicId(int topicId)
         {
             var comments = _repository.GetCommentsByTopicId(topicId);
-            if(comments == null)
-            {
-                throw new NotFoundException("Ce TopicID n'existe pas.");
-            }
-            if(comments.Count == 0)
-            {
-                throw new NotFoundException("Ce Topic n'a pas de commentaires.");
-            }
+            //TODO : Verifier si le Topic existe
+            //if(comments == null)
+            //{
+            //    throw new NotFoundException("Ce TopicID n'existe pas.");
+            //}
             return comments;
         }
         public Comment CreateComment(Comment comment)
@@ -44,7 +41,6 @@ namespace forum_api.Services
         }
         public Comment UpdateComment(Comment comment)
         {
-            _ = this.GetCommentById(comment.Id);
             comment.ModificationDate = DateTime.Now;
             return this._repository.UpdateComment(comment);
         }

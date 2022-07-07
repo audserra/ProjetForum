@@ -34,9 +34,7 @@ namespace forum_api.Repositories
 
         public Comment UpdateComment(Comment comment)
         {
-            _dbContext.Entry(comment).State = EntityState.Detached;
-            _dbContext.Entry(comment).State = EntityState.Modified;
-            //this._dbContext.Comments.Update(comment);
+            this._dbContext.Comments.Update(comment);
             this._dbContext.SaveChanges();
             return comment;
         }
@@ -44,7 +42,6 @@ namespace forum_api.Repositories
         public void DeleteComment(int id)
         {
             var comment = _dbContext.Comments.SingleOrDefault(c => c.Id == id);
-
             this._dbContext.Comments.Remove(comment);
             this._dbContext.SaveChanges();
         }
