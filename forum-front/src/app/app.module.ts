@@ -6,16 +6,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { TopicComponent } from './pages/topic/topic.component';
-import { CommentComponent } from './pages/comment/comment.component';
+import { TopicListComponent } from './pages/topicList/topicList.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     FooterComponent,
     NavbarComponent,
-    TopicComponent,
-    CommentComponent
+    TopicListComponent
   ],
   imports: [
     BrowserModule,
