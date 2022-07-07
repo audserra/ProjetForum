@@ -7,6 +7,8 @@
         public WordFilterService()
         {
             string path = System.AppDomain.CurrentDomain.BaseDirectory.Replace(@"Tests\bin\Debug\net6.0\", @"\");
+            path = System.AppDomain.CurrentDomain.BaseDirectory.Replace(@"Tests/bin/Debug/net6.0/", @"/");
+
             var content = File.ReadLines(Path.Combine(path,"insults.txt"));
             banWords = content.ToArray();
         }
