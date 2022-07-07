@@ -67,6 +67,16 @@ namespace forum_api.Services.Tests
                 Author = "Thomas",
                 Comments = new List<Comment>()
             };
+
+            this.expectedTopic = new Topic()
+            {
+                Id = 1,
+                CreationDate = originDate,
+                ModificationDate = null,
+                Title = "Test",
+                Author = "Thomas",
+                Comments = new List<Comment>()
+            };
         }
 
         [TestMethod()]
