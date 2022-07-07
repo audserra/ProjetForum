@@ -17,14 +17,22 @@ namespace forum_api.Services.Tests
     {
         private ICommentService _commentService;
         private Mock<ICommentRepository> _commentRepository;
+
+        private ITopicService _topicService;
+        private Mock<ITopicRepository> _topicRepository;
+
         private Comment expectedComment;
         private DateTime originDateTime;
 
         [TestInitialize]
         public void Initialize()
         {
+            this._topicRepository = new Mock<ITopicRepository>(MockBehavior.Strict);
+            this._topicService = new TopicService(this._topicRepository.Object);
+
             this._commentRepository = new Mock<ICommentRepository>(MockBehavior.Strict);
-            this._commentService = new CommentService(this._commentRepository.Object);
+            this._commentService = new CommentService(this._commentRepository.Object, this._topicService);
+
 
             this.originDateTime = new DateTime(1970, 1, 1);
             this.expectedComment = new Comment()
@@ -76,6 +84,9 @@ namespace forum_api.Services.Tests
         public void GetCommentsByTopicIdTest_ValidTopicId_ShouldReturnList(int id)
         {
             // Arrange
+            this._topicRepository.Setup(r => r.GetTopicById(It.IsAny<int>()))
+                .Returns(new Topic());
+
             this._commentRepository.Setup(r => r.GetCommentsByTopicId(It.IsAny<int>()))
                 .Returns(new List<Comment>() { expectedComment, expectedComment});
 
@@ -89,9 +100,26 @@ namespace forum_api.Services.Tests
         }
 
         [TestMethod()]
+        [DataRow(1)]
+        [DataRow(3)]
+        public void GetCommentsByTopicIdTest_InvalidTopicId_ShouldThrowNotFoundException(int id)
+        {
+            // Arrange
+            this._topicRepository.Setup(r => r.GetTopicById(It.IsAny<int>()))
+                .Returns((Topic)null);
+
+            // Act + Assert
+            Assert.ThrowsException<NotFoundException>(() => _commentService.GetCommentsByTopicId(id));
+            this._commentRepository.VerifyAll();
+        }
+
+        [TestMethod()]
         public void CreateCommentTest_ValidInput_ShouldUpdateCreationDateAndAddComment()
         {
             // Arrange
+            this._topicRepository.Setup(r => r.GetTopicById(It.IsAny<int>()))
+                .Returns(new Topic());
+
             this._commentRepository.Setup(r => r.CreateComment(It.IsAny<Comment>()))
                 .Returns(expectedComment);
 
@@ -106,9 +134,25 @@ namespace forum_api.Services.Tests
         }
 
         [TestMethod()]
+        public void CreateCommentTest_InvalidTopicId_ShouldThrowNotFoundException()
+        {
+            // Arrange
+            this._topicRepository.Setup(r => r.GetTopicById(It.IsAny<int>()))
+                .Returns((Topic)null);
+
+            // Act + Assert
+            Assert.ThrowsException<NotFoundException>(() => _commentService.CreateComment(expectedComment));
+            this._commentRepository.VerifyAll();
+        }
+
+
+        [TestMethod()]
         public void UpdateCommentTest_ValidInput_ShouldUpdateModificationDateAndUpdateComment()
         {
             // Arrange
+            this._topicRepository.Setup(r => r.GetTopicById(It.IsAny<int>()))
+                .Returns(new Topic());
+
             this._commentRepository.Setup(r => r.UpdateComment(It.IsAny<Comment>()))
                 .Returns(expectedComment);
 
@@ -120,6 +164,18 @@ namespace forum_api.Services.Tests
             Assert.AreEqual(expectedComment, actualComment);
             Assert.AreEqual(originDateTime, actualComment.CreationDate);
             Assert.AreNotEqual(originDateTime, actualComment.ModificationDate);
+            this._commentRepository.VerifyAll();
+        }
+
+        [TestMethod()]
+        public void UpdateCommentTest_InvalidTopicId_ShouldThrowNotFoundException()
+        {
+            // Arrange
+            this._topicRepository.Setup(r => r.GetTopicById(It.IsAny<int>()))
+                .Returns((Topic)null);
+
+            // Act + Assert
+            Assert.ThrowsException<NotFoundException>(() => _commentService.UpdateComment(expectedComment));
             this._commentRepository.VerifyAll();
         }
 
