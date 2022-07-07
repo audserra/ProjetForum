@@ -1,6 +1,8 @@
 ﻿using forum_api.DataAccess.DataObjects;
+using forum_api.Exceptions;
 using forum_api.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace forum_api.Controllers
 {
@@ -20,11 +22,10 @@ namespace forum_api.Controllers
         {
             try
             {
-                Topic topic = this.topicService.GetTopicById(id);
-                return Ok(topic);
+                return Ok(this.topicService.GetTopicById(id));
             }
-            
-            catch (Exception e)
+
+            catch (NotFoundException e)
             {
                 return BadRequest("Invalide get request :" + e.Message);
 
@@ -38,15 +39,23 @@ namespace forum_api.Controllers
         }
 
         [HttpPost]
-        public Topic AddTopic(Topic topic)
+        public IActionResult AddTopic(Topic topic)
         {
-            return this.topicService.AddTopic(topic);
+            Topic topicCreated = this.topicService.AddTopic(topic);
+            return CreatedAtAction(nameof(GetTopicById), new { id = topicCreated.Id }, topicCreated);
         }
 
         [HttpPut]
-        public Topic UpdateTopic(Topic topic)
+        public IActionResult UpdateTopic(Topic topic)
         {
-            return this.topicService.UpdateTopic(topic);
+            try
+            {
+                return Ok(this.topicService.UpdateTopic(topic));
+            }
+            catch (NotFoundException ex)
+            {
+                return BadRequest($"Erreur d'update : {ex.Message}");
+            }
         }
 
         [HttpDelete("{id}")]
@@ -55,11 +64,11 @@ namespace forum_api.Controllers
             try
             {
                 this.topicService.DeleteTopic(id);
-                return Ok();
+                return Ok("Deleted!");
             }
-            catch (Exception e)
+            catch (NotFoundException ex)
             {
-                return BadRequest("Invalide delete request :" + e.Message);
+                return BadRequest($"Erreur de suppression : {ex.Message}");
             }
         }
     }
