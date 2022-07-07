@@ -7,14 +7,18 @@ namespace forum_api.Services
     public class TopicService : ITopicService
     {
         private ITopicRepository topicRepository;
-        public TopicService(ITopicRepository repo)
+        private IWordFilterService wordFilterService;
+
+        public TopicService(ITopicRepository repo, IWordFilterService wordFilterService)
         {
             topicRepository = repo;
+            this.wordFilterService = wordFilterService;
         }
 
         public Topic AddTopic(Topic topic)
         {
             topic.CreationDate = DateTime.Now;
+            topic.Title = this.wordFilterService.ReplaceInsults(topic.Title);
             return this.topicRepository.AddTopic(topic);
         }
 
@@ -44,6 +48,7 @@ namespace forum_api.Services
         public Topic UpdateTopic(Topic topic)
         {
             topic.ModificationDate = DateTime.Now;
+            topic.Title = this.wordFilterService.ReplaceInsults(topic.Title);
             return this.topicRepository.UpdateTopic(topic);
         }
     }

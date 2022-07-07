@@ -18,6 +18,10 @@ namespace forum_api.Services.Tests
         private ITopicService _topicService;
         private Mock<ITopicRepository> _topicRepository;
         private Topic expectedTopic;
+
+
+        private IWordFilterService _wordFilterService;
+
         private static DateTime originDate = new DateTime(2000, 08, 07, 09, 05, 00);
 
         private static IEnumerable<Topic[]> GetTestData()
@@ -50,8 +54,9 @@ namespace forum_api.Services.Tests
         [TestInitialize]
         public void Initialize()
         {
+            this._wordFilterService = new WordFilterService();
             this._topicRepository = new Mock<ITopicRepository>();
-            this._topicService = new TopicService(this._topicRepository.Object);
+            this._topicService = new TopicService(this._topicRepository.Object, this._wordFilterService);
 
             this.expectedTopic = new Topic()
             {
