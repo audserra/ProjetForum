@@ -17,15 +17,11 @@ namespace forum_api.Repositories
             return topic;
         }
 
-        public Topic DeleteTopic(int id)
+        public void DeleteTopic(int id)
         {
             Topic topic = this.context.Topics.FirstOrDefault(a => a.Id == id);
-            if (topic != null)
-            {
-                this.context.Topics.Remove(topic);
-                this.context.SaveChanges();
-            }
-            return topic;
+            this.context.Topics.Remove(topic);
+            this.context.SaveChanges();
         }
 
         public Topic GetTopicById(int id)

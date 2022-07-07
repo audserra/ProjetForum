@@ -16,9 +16,19 @@ namespace forum_api.Controllers
         }
 
         [HttpGet("{id}")]
-        public Topic GetTopicById(int id)
+        public IActionResult GetTopicById(int id)
         {
-            return this.topicService.GetTopicById(id);
+            try
+            {
+                Topic topic = this.topicService.GetTopicById(id);
+                return Ok(topic);
+            }
+            
+            catch (Exception e)
+            {
+                return BadRequest("Invalide get request :" + e.Message);
+
+            }
         }
 
         [HttpGet]
@@ -42,14 +52,14 @@ namespace forum_api.Controllers
         [HttpDelete("{id}")]
         public IActionResult DeleteTopic(int id)
         {
-            try 
+            try
             {
                 this.topicService.DeleteTopic(id);
                 return Ok();
             }
             catch (Exception e)
             {
-                return  BadRequest("Invalide request" + e.Message);
+                return BadRequest("Invalide delete request :" + e.Message);
             }
         }
     }

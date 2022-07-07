@@ -19,16 +19,20 @@ namespace forum_api.Services
 
         public void DeleteTopic(int id)
         {
-            Topic topic = this.topicRepository.DeleteTopic(id);
-            if(topic == null)
-            {
-                throw new Exception("Error : Tried to delete a topic which doesn't exist !");
-            }
+            _= this.GetTopicById(id);
+            this.topicRepository.DeleteTopic(id);
         }
 
         public Topic GetTopicById(int id)
         {
-            return this.topicRepository.GetTopicById(id);
+            Topic topic = this.topicRepository.GetTopicById(id);
+
+            if(topic == null)
+            {
+                throw new Exception("Ce topic n'existe pas"); 
+            }
+
+            return topic;
         }
 
         public IEnumerable<Topic> GetTopics()
