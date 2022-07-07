@@ -11,7 +11,7 @@ namespace forum_api.DataAccess.DataObjects
         }
 
         public int Id { get; set; }
-        public DateTime CreationDate { get; set; }
+        public DateTime? CreationDate { get; set; }
         public DateTime? ModificationDate { get; set; }
         public string Title { get; set; } = null!;
         public string Author { get; set; } = null!;

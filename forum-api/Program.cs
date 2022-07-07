@@ -23,6 +23,13 @@ builder.Services.AddEntityFrameworkMySql().AddDbContext<mangafilrouge_forumdbCon
         });
 });
 
+//repositories
+builder.Services.AddTransient<ITopicRepository, TopicRepository>();
+
+//services
+builder.Services.AddTransient<ITopicService, TopicService>();
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
