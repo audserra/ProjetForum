@@ -7,7 +7,7 @@ using System.Net;
 namespace forum_api.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class TopicController : ControllerBase
     {
         private readonly ITopicService topicService;
