@@ -2,6 +2,7 @@ using forum_api.DataAccess.DataObjects;
 using forum_api.Repositories;
 using forum_api.Services;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,7 +29,13 @@ builder.Services.AddTransient<ITopicRepository, TopicRepository>();
 
 //services
 builder.Services.AddTransient<ITopicService, TopicService>();
+builder.Services.AddTransient<IWordFilterService, WordFilterService>();
 
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+    options.JsonSerializerOptions.WriteIndented = true;
+});
 
 var app = builder.Build();
 

@@ -21,17 +21,21 @@ namespace forum_api.Services.Tests
         private ITopicService _topicService;
         private Mock<ITopicRepository> _topicRepository;
 
+        private IWordFilterService _wordFilterService;
+
         private Comment expectedComment;
         private DateTime originDateTime;
 
         [TestInitialize]
         public void Initialize()
         {
+            this._wordFilterService = new WordFilterService();
+
             this._topicRepository = new Mock<ITopicRepository>(MockBehavior.Strict);
-            this._topicService = new TopicService(this._topicRepository.Object);
+            this._topicService = new TopicService(this._topicRepository.Object, this._wordFilterService);
 
             this._commentRepository = new Mock<ICommentRepository>(MockBehavior.Strict);
-            this._commentService = new CommentService(this._commentRepository.Object, this._topicService);
+            this._commentService = new CommentService(this._commentRepository.Object, this._topicService, this._wordFilterService);
 
 
             this.originDateTime = new DateTime(1970, 1, 1);
