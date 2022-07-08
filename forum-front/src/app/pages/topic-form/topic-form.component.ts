@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TopicService } from 'src/app/services/topic.service';
 import { Topic } from 'src/models/topic';
@@ -10,6 +10,7 @@ import { Topic } from 'src/models/topic';
 })
 export class TopicFormComponent implements OnInit {
 
+  @Output() buttonClicked = new EventEmitter();
   topicForm:FormGroup;
 
   constructor(private topicService : TopicService) { 
@@ -25,11 +26,13 @@ export class TopicFormComponent implements OnInit {
 
   addTopic() : void{
     let topic = new Topic(undefined, undefined, undefined, this.topicForm.get("titleControl").value, this.topicForm.get("authorControl").value, undefined);
-    console.log(topic);
 
-    this.topicService.createTopic(topic).subscribe((data: string) => {});
+    this.topicService.createTopic(topic).subscribe(() => {
+      this.buttonClicked.emit();
+    });
 
     this.topicForm.reset();
+
   }
 
 }

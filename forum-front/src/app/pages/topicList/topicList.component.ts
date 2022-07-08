@@ -17,9 +17,18 @@ export class TopicListComponent implements OnInit {
     this.loadTopics();
   }
 
+  // Code laissé pour l'exemple
   loadTopics(): void {
-    this.topicService.getAllTopics().subscribe(response =>{
-      this.topics = response;
+    this.topicService.getAllTopics().subscribe({
+      next: (response) => {
+          this.topics = response;
+      },
+      error : (err) => {
+
+      },
+      complete: () => {
+
+      }
     });
   }
 
@@ -32,4 +41,8 @@ export class TopicListComponent implements OnInit {
         });
     }
    }
+
+   handleChildEvent () {
+    this.loadTopics();
+  }
 }
