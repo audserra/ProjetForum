@@ -1,0 +1,22 @@
+.shadow{
+    background: linear-gradient(180deg,rgba(6,13,34,0) 40%,rgba(6,13,34,.6));
+    height: 100%;
+    width: 100%;
+}
+
+.banner{
+    height: 310px;
+    margin-top: 0;
+    margin-bottom: 10px;
+    /* padding-left: 50px; */
+    /* padding-right: 50px; */
+    background-position: 50% 35%;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.text{
+    color: aliceblue;
+    padding-left: 50px;
+    padding-right: 50px;
+}
