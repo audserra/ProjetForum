@@ -64,7 +64,7 @@ namespace forum_api.Controllers
             try
             {
                 this.topicService.DeleteTopic(id);
-                return Ok("Deleted!");
+                return Ok();
             }
             catch (NotFoundException ex)
             {

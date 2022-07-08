@@ -23,4 +23,13 @@ export class TopicListComponent implements OnInit {
     });
   }
 
+  deleteTopic(event : Event, topicId : number){
+    event.stopPropagation();
+    if(confirm("Etes vous sûr de vouloir supprimer ce topic ? Cette action est irréversible, et entraînera la suppression de tous les commentaires associés !" )){
+        this.topicService.deleteTopic(topicId).subscribe(response =>{
+          console.log(topicId);
+          this.loadTopics();
+        });
+    }
+   }
 }

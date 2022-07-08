@@ -22,4 +22,8 @@ export class TopicService {
   createTopic(topic: Topic) {
     return this.httpClient.post(`${environment.apiBaseUrl}/Topic`, topic)
   }
+
+  deleteTopic(id : number){
+    return this.httpClient.delete(`${environment.apiBaseUrl}/Topic/${id}`)
+  }
 }
