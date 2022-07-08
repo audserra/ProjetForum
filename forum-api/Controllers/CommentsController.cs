@@ -68,7 +68,7 @@ namespace forum_api.Controllers
             try
             {
                 this._service.DeleteComment(id);
-                return Ok("Deleted!");
+                return Ok();
             }
             catch (NotFoundException ex)
             {
