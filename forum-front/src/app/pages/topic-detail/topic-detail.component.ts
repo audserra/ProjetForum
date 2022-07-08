@@ -51,4 +51,10 @@ export class TopicDetailComponent implements OnInit {
       this.loadComments()
     });
   }
+
+  updateComment(comment: Comment){
+    this.commentService.updateComment(comment).subscribe((data: string) => {
+      this.loadComments()
+    });
+  }
 }

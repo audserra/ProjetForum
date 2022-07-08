@@ -11,6 +11,8 @@ import { TopicDetailComponent } from './pages/topic-detail/topic-detail.componen
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { TopicFormComponent } from './pages/topic-form/topic-form.component';
+import { ModalModifyComponent } from './components/modal-modify/modal-modify.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,8 @@ import { TopicFormComponent } from './pages/topic-form/topic-form.component';
     NavbarComponent,
     TopicListComponent,
     TopicDetailComponent,
-    TopicFormComponent
+    TopicFormComponent,
+    ModalModifyComponent
   ],
   imports: [
     BrowserModule,
@@ -27,7 +30,8 @@ import { TopicFormComponent } from './pages/topic-form/topic-form.component';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule 
+    RouterModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]
