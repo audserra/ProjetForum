@@ -7,18 +7,25 @@ import { AppComponent } from './app.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { TopicListComponent } from './pages/topicList/topicList.component';
+import { TopicDetailComponent } from './pages/topic-detail/topic-detail.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
     AppComponent,
     FooterComponent,
     NavbarComponent,
-    TopicListComponent
+    TopicListComponent,
+    TopicDetailComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+    RouterModule 
   ],
   providers: [],
   bootstrap: [AppComponent]

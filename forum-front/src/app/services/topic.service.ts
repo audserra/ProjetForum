@@ -12,6 +12,10 @@ export class TopicService {
   constructor(private httpClient : HttpClient) { }
 
   getAllTopics() : Observable<Topic[]>{
-    return this.httpClient.get<Topic[]>((`${environment.apiBaseUrl}/topic`))
+    return this.httpClient.get<Topic[]>(`${environment.apiBaseUrl}/Topic`)
+  }
+
+  getTopicById(id : number) : Observable<Topic>{
+    return this.httpClient.get<Topic>(`${environment.apiBaseUrl}/Topic/${id}`)
   }
 }

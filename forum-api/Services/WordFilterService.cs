@@ -1,4 +1,6 @@
-﻿namespace forum_api.Services
+﻿using System.Text.RegularExpressions;
+
+namespace forum_api.Services
 {
     public class WordFilterService : IWordFilterService
     {
@@ -20,15 +22,20 @@
             {
                 foreach (var word in banWords)
                 {
-                    if (textATester.Contains(word))
+                    int index = textATester.ToUpper().IndexOf(word.ToUpper());
+                    while(index != -1)
                     {
-                        string newWord = "" + word[0];
+                        string oldWord = textATester.Substring(index, word.Length);
+                        string newWord = "" + oldWord[0];
                         for (int i = 1; i < word.Length - 1; i++)
                         {
                             newWord += "*";
                         }
-                        newWord += word[word.Length - 1];
-                        textATester = textATester.Replace(word, newWord);
+                        newWord += oldWord[word.Length - 1];
+                        //textATester = Regex.Replace(textATester, word, newWord, RegexOptions.IgnoreCase);
+
+                        textATester = textATester.Replace(oldWord, newWord);
+                        index = textATester.ToUpper().IndexOf(word.ToUpper());
                     }
                 }
             }
