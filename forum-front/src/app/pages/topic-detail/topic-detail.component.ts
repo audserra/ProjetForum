@@ -46,4 +46,15 @@ export class TopicDetailComponent implements OnInit {
       this.commentForm.reset();
   }
 
+  deleteComment(idComment: number){
+    this.commentService.deleteComment(idComment).subscribe((data: string) => {
+      this.loadComments()
+    });
+  }
+
+  updateComment(comment: Comment){
+    this.commentService.updateComment(comment).subscribe((data: string) => {
+      this.loadComments()
+    });
+  }
 }

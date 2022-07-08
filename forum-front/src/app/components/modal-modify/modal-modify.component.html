@@ -1,0 +1,30 @@
+<ng-template #content let-c="close" let-d="dismiss">
+    
+    <div class="modal-header">
+        <!-- <div class="banner" *ngIf="anime?.data.Media.bannerImage" style="background-image: url({{anime?.data.Media.bannerImage}});">
+            <div class="shadow"></div>
+        </div>
+        <div class="anime__details__content"> 
+            <div class="row"> 
+                <div class="col-lg-3"> 
+                    <div class="anime set-bg" [ngStyle]="{ 'background-image': 'url(' + anime?.data.Media.coverImage.extraLarge + ')'}">
+                    </div>
+                </div>
+            </div>
+        </div> -->
+      <h4 *ngIf="comment" class="modal-title" id="modal-basic-title">Commentaire de : {{comment?.user}}</h4>
+      <h4 *ngIf="topic" class="modal-title" id="modal-basic-title">Topic de : {{topic?.author}}</h4>
+      <button type="button" id="closeModalButton" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="modifyForm">
+             <div class="MargTop">
+                <label *ngIf="comment"class="MargTop" for="Content">Contenu : </label>
+                <label *ngIf="topic"class="MargTop" for="Content">Titre : </label>
+                <textarea class="MargTop" id="textarea" class="form-control"  formControlName="contentControl"></textarea>
+             </div>
+            <button type="button" id="validateButton" class="btn btn-dark btnAdd">Valider</button>
+        </form>
+    </div>
+  </ng-template>
+<a class="btn btn-dark mr-1-2" (click)="open(content)">Modifier</a>

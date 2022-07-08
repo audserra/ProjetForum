@@ -18,4 +18,12 @@ export class CommentService {
   createComment(comment: Comment) {
     return this.httpClient.post(`${environment.apiBaseUrl}/Comments`, comment)
   }
+
+  deleteComment(idComment: number) {
+    return this.httpClient.delete(`${environment.apiBaseUrl}/Comments/${idComment}`)
+  }
+
+  updateComment(comment: Comment) {
+    return this.httpClient.put(`${environment.apiBaseUrl}/Comments`, comment)
+  }
 }
