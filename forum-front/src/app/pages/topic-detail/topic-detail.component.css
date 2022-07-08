@@ -329,5 +329,13 @@ body{
     .mr-1-2{
         margin-right: 1.2rem;
     }
+
+    .reviews-members{
+        background-color: wheat;
+        padding: 20px;
+        border:rgba(2, 0, 0, .075);
+        border-style: outset;
+        border-radius: 25% 10%;
+    }
     
     
