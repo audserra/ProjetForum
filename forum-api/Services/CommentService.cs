@@ -44,7 +44,7 @@ namespace forum_api.Services
         }
         public Comment UpdateComment(Comment comment)
         {
-            _ = this._topicService.GetTopicById(comment.TopicId);
+            this._topicService.GetTopicById(comment.TopicId);
 
             comment.ModificationDate = DateTime.Now;
             comment.Content = this._wordFilterService.ReplaceInsults(comment.Content);

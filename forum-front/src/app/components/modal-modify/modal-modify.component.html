@@ -21,9 +21,9 @@
              <div class="MargTop">
                 <label *ngIf="comment"class="MargTop" for="Content">Contenu : </label>
                 <label *ngIf="topic"class="MargTop" for="Content">Titre : </label>
-                <textarea class="MargTop" id="textarea" class="form-control"  formControlName="contentControl"></textarea>
+                <textarea class="MargTop" id="textarea" class="form-control" formControlName="contentControl"></textarea>
              </div>
-            <button type="button" id="validateButton" class="btn btn-dark btnAdd">Valider</button>
+            <button type="button" [disabled]="modifyForm.get('contentControl').value == undefined || modifyForm.get('contentControl').value == ''" id="validateButton" class="btn btn-dark btnAdd" (click)="validateUpdate()">Valider</button>
         </form>
     </div>
   </ng-template>
