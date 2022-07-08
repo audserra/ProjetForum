@@ -10,6 +10,8 @@ import { TopicListComponent } from './pages/topicList/topicList.component';
 import { TopicDetailComponent } from './pages/topic-detail/topic-detail.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { ModalModifyComponent } from './components/modal-modify/modal-modify.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,8 @@ import { RouterModule } from '@angular/router';
     FooterComponent,
     NavbarComponent,
     TopicListComponent,
-    TopicDetailComponent
+    TopicDetailComponent,
+    ModalModifyComponent
   ],
   imports: [
     BrowserModule,
@@ -25,7 +28,8 @@ import { RouterModule } from '@angular/router';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule 
+    RouterModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]

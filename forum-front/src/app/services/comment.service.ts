@@ -22,4 +22,8 @@ export class CommentService {
   deleteComment(idComment: number) {
     return this.httpClient.delete(`${environment.apiBaseUrl}/Comments/${idComment}`)
   }
+
+  updateComment(comment: Comment) {
+    return this.httpClient.put(`${environment.apiBaseUrl}/Comments`, comment)
+  }
 }
