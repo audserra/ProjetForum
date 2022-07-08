@@ -52,7 +52,8 @@ export class TopicDetailComponent implements OnInit {
     });
   }
 
-  updateComment(comment: Comment){
+  updateComment(comment){
+    console.log(comment);
     this.commentService.updateComment(comment).subscribe((data: string) => {
       this.loadComments()
     });

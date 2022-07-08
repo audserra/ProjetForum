@@ -34,6 +34,7 @@ namespace forum_api.Repositories
 
         public Comment UpdateComment(Comment comment)
         {
+            this._dbContext.ChangeTracker.Clear();
             this._dbContext.Comments.Update(comment);
             this._dbContext.SaveChanges();
             return comment;

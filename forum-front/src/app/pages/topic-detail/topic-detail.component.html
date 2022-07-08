@@ -64,7 +64,7 @@
                                                 <p>{{comment.content}}</p>
                                             </div>
                                             <div class="reviews-members-footer">
-                                                <app-modal-modify [comment] = comment></app-modal-modify>
+                                                <app-modal-modify (updateComment)="updateComment($event)" [comment] = comment></app-modal-modify>
                                                 <a class="btn btn-dark ml-1-2" (click)="deleteComment(comment.id)">Supprimer</a>
                                             </div>
                                         </div>
