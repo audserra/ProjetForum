@@ -58,15 +58,14 @@
                                                 <h6 class="mb-1">
                                                     <h3>{{comment.user}}</h3>
                                                 </h6>
-                                                <p class="text-gray">Creation Date : {{comment.creationDate | date:'dd/MM/yyyy, h:mm a'}}</p>
-                                                <p class="text-gray">Modification Date : {{comment.modificationDate | date:'dd/MM/yyyy, h:mm a'}}</p>
+                                                <p class="text-muted">Creation Date : {{comment.creationDate | date:'dd/MM/yyyy, h:mm a'}} <br><span *ngIf="comment.modificationDate">Modification Date : {{comment.modificationDate | date:'dd/MM/yyyy, h:mm a'}}</span></p>
                                             </div>
                                             <div class="reviews-members-body">
                                                 <p>{{comment.content}}</p>
                                             </div>
                                             <div class="reviews-members-footer">
-                                                <a class="btn btn-dark">Supprimer cet
-                                                    avis</a>
+                                                <a class="btn btn-dark mr-1-2">Modifier</a>
+                                                <a class="btn btn-dark">Supprimer</a>
                                             </div>
                                         </div>
                                     </div>
