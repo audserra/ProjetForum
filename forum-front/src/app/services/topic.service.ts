@@ -18,4 +18,12 @@ export class TopicService {
   getTopicById(id : number) : Observable<Topic>{
     return this.httpClient.get<Topic>(`${environment.apiBaseUrl}/Topic/${id}`)
   }
+
+  createTopic(topic: Topic) {
+    return this.httpClient.post(`${environment.apiBaseUrl}/Topic`, topic)
+  }
+
+  deleteTopic(id : number){
+    return this.httpClient.delete(`${environment.apiBaseUrl}/Topic/${id}`)
+  }
 }

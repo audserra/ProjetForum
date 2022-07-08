@@ -14,9 +14,35 @@ export class TopicListComponent implements OnInit {
   constructor(private topicService : TopicService) { }
 
   ngOnInit(): void {
-    this.topicService.getAllTopics().subscribe(response =>{
-      this.topics = response;
-      console.log(this.topics)
-    })
+    this.loadTopics();
+  }
+
+  // Code laissé pour l'exemple
+  loadTopics(): void {
+    this.topicService.getAllTopics().subscribe({
+      next: (response) => {
+          this.topics = response;
+      },
+      error : (err) => {
+
+      },
+      complete: () => {
+
+      }
+    });
+  }
+
+  deleteTopic(event : Event, topicId : number){
+    event.stopPropagation();
+    if(confirm("Etes vous sûr de vouloir supprimer ce topic ? Cette action est irréversible, et entraînera la suppression de tous les commentaires associés !" )){
+        this.topicService.deleteTopic(topicId).subscribe(response =>{
+          console.log(topicId);
+          this.loadTopics();
+        });
+    }
+   }
+
+   handleChildEvent () {
+    this.loadTopics();
   }
 }

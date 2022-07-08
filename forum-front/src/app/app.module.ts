@@ -10,6 +10,7 @@ import { TopicListComponent } from './pages/topicList/topicList.component';
 import { TopicDetailComponent } from './pages/topic-detail/topic-detail.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { TopicFormComponent } from './pages/topic-form/topic-form.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { RouterModule } from '@angular/router';
     FooterComponent,
     NavbarComponent,
     TopicListComponent,
-    TopicDetailComponent
+    TopicDetailComponent,
+    TopicFormComponent
   ],
   imports: [
     BrowserModule,
